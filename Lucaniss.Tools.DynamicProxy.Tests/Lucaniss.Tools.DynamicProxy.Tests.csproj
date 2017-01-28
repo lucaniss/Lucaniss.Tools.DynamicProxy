@@ -77,7 +77,7 @@
     <Compile Include="ProxyBehaviourForClassWithRefParameters.cs" />
     <Compile Include="Data\Classes\TestClass.cs" />
     <Compile Include="ProxyInterceptorTest.cs" />
-    <Compile Include="ProxyManagerTest.cs" />
+    <Compile Include="ProxyCreateTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lucaniss.Tools.DynamicProxy\Lucaniss.Tools.DynamicProxy.csproj">

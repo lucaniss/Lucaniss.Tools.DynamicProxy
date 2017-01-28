@@ -12,7 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Lucaniss.Tools.DynamicProxy.Tests
 {
     [TestClass]
-    public class ProxyManagerTest
+    public class ProxyCreateTest
     {
         [TestMethod]
         public void CreateProxy_WhenUsedGenericMethod_WithImplicitProxyType_ThenReturnProxy()
