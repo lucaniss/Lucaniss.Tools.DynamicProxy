@@ -56,7 +56,7 @@
     <Compile Include="Exceptions\ProxyExceptionErrors.cs" />
     <Compile Include="Exceptions\ProxyExceptionHelper.cs" />
     <Compile Include="Extensions\MethodInfoExtensions.cs" />
-    <Compile Include="ProxyManager.cs" />
+    <Compile Include="Proxy.cs" />
     <Compile Include="Exceptions\ProxyException.cs" />
     <Compile Include="Implementation\Interceptors\Implementations\ProxyInterceptor.cs" />
     <Compile Include="Helpers\FrameworkHelper.cs" />

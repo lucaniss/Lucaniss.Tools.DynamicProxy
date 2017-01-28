@@ -22,7 +22,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             var interceptorHandler = CreateDefaultInterceptorHandler<TestClassInherited>();
 
             // Act
-            var proxy = ProxyManager.CreateProxy(instance, interceptorHandler);
+            var proxy = Proxy.Create(instance, interceptorHandler);
 
             // Assert
             Assert.IsNotNull(proxy);
@@ -39,7 +39,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             var interceptorHandler = CreateDefaultInterceptorHandler<TestClassBase>();
 
             // Act
-            var proxy = ProxyManager.CreateProxy<TestClassInherited, TestClassBase, IProxyInterceptorHandler<TestClassBase>>(instance, interceptorHandler);
+            var proxy = Proxy.Create<TestClassInherited, TestClassBase, IProxyInterceptorHandler<TestClassBase>>(instance, interceptorHandler);
 
             // Assert
             Assert.IsNotNull(proxy);
@@ -57,7 +57,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             Object interceptorHandler = CreateDefaultInterceptorHandler<TestClassInherited>();
 
             // Act
-            var proxy = ProxyManager.CreateProxy(instance, interceptorHandler);
+            var proxy = Proxy.Create(instance, interceptorHandler);
 
             // Assert
             Assert.AreEqual(String.Format(ProxyConsts.TypeName, typeof (TestClassInherited).Name), proxy.GetType().Name);
@@ -72,7 +72,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             Object interceptorHandler = CreateDefaultInterceptorHandler<TestClassInherited>();
 
             // Act
-            var proxy = ProxyManager.CreateProxy(typeof (TestClassBase), instance, interceptorHandler);
+            var proxy = Proxy.Create(typeof (TestClassBase), instance, interceptorHandler);
 
             // Assert
             Assert.AreEqual(String.Format(ProxyConsts.TypeName, typeof (TestClassBase).Name), proxy.GetType().Name);
@@ -88,7 +88,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             var interceptorHandler = CreateDefaultInterceptorHandler<TestClassWithConstructor>();
 
             // Act
-            var proxy = ProxyManager.CreateProxy(instance, interceptorHandler);
+            var proxy = Proxy.Create(instance, interceptorHandler);
 
             // Assert
             Assert.IsNotNull(proxy);
@@ -102,7 +102,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             // Act
             Action action = () =>
             {
-                ProxyManager.CreateProxy(null, CreateDefaultInterceptorHandler<TestClass>());
+                Proxy.Create(null, CreateDefaultInterceptorHandler<TestClass>());
             };
 
             // Assert
@@ -115,7 +115,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             // Act
             Action action = () =>
             {
-                ProxyManager.CreateProxy(new TestClass(), null);
+                Proxy.Create(new TestClass(), null);
             };
 
             // Assert
@@ -131,7 +131,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
 
             Action action = () =>
             {
-                ProxyManager.CreateProxy(instance, interceptorHandler);
+                Proxy.Create(instance, interceptorHandler);
             };
 
             // Assert

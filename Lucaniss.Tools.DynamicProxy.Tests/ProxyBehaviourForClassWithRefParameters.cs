@@ -29,7 +29,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
                 });
 
             // Act
-            var proxy = ProxyManager.CreateProxy(instance, interceptoHandlerMock.Instance);
+            var proxy = Proxy.Create(instance, interceptoHandlerMock.Instance);
 
             var text = valuBeforeCall;
             proxy.Echo(ref text);
@@ -59,7 +59,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
                 });
 
             // Act
-            var proxy = ProxyManager.CreateProxy(instance, interceptoHandlerMock.Instance);
+            var proxy = Proxy.Create(instance, interceptoHandlerMock.Instance);
 
             String text;
             proxy.Echo(out text);

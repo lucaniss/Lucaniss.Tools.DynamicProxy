@@ -18,37 +18,37 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
 
         public static void CreateConstructor(ILGenerator msil, MSILCodeVariables variables)
         {
-            // INFO: Odłożenie na stertę obiektu 'this'
+            // INFO: Odłożenie na stosie obiektu 'this'.
             msil.Emit(OpCodes.Ldarg_0);
 
-            // INFO: Odłoznie na stertę obiektu przekazanego w parametrze konstruktora (Oryginał)
+            // INFO: Odłożenie na stosie obiektu przekazanego w parametrze konstruktora (Oryginał).
             msil.Emit(OpCodes.Ldarg_1);
 
-            // INFO: Skopiowanie obiektu Interceptora do lokalnego pola klasy Proxy
+            // INFO: Skopiowanie obiektu Interceptora do lokalnego pola klasy Proxy.
             msil.Emit(OpCodes.Stfld, variables.OriginalInstanceFieldInfo);
 
 
-            // INFO: Odłożenie na stertę obiektu 'this'
+            // INFO: Odłożenie na stosie obiektu 'this'.
             msil.Emit(OpCodes.Ldarg_0);
 
-            // INFO: Odłoznie na stertę obiektu przekazanego w parametrze konstruktora (Interceptor)
+            // INFO: Odłoznie na stosie obiektu przekazanego w parametrze konstruktora (Interceptor)
             msil.Emit(OpCodes.Ldarg_2);
 
-            // INFO: Skopiowanie obiektu Interceptora do lokalnego pola instancji klasy Proxy
+            // INFO: Skopiowanie obiektu Interceptora do lokalnego pola instancji klasy Proxy.
             msil.Emit(OpCodes.Stfld, variables.InterceptorInstanceFieldInfo);
 
 
-            // INFO: Odłożenie na stertę obiektu 'this'
+            // INFO: Odłożenie na stosie obiektu 'this'.
             msil.Emit(OpCodes.Ldarg_0);
 
-            // INFO: Odłoznie na stertę obiektu przekazanego w parametrze konstruktora (Interceptor)
+            // INFO: Odłożenie na stosie obiektu przekazanego w parametrze konstruktora (Interceptor).
             msil.Emit(OpCodes.Ldarg_3);
 
-            // INFO: Skopiowanie obiektu Handlera do lokalnego pola instancji klasy Proxy
+            // INFO: Skopiowanie obiektu Handlera do lokalnego pola instancji klasy Proxy.
             msil.Emit(OpCodes.Stfld, variables.InterceptorHandlerInstanceFieldInfo);
 
 
-            // INFO: Powrót z podprogramu
+            // INFO: Powrót z podprogramu.
             msil.Emit(OpCodes.Ret);
         }
 

@@ -32,7 +32,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
                 });
 
             // Act
-            var proxy = ProxyManager.CreateProxy(instance, interceptoHandlerMock.Instance);
+            var proxy = Proxy.Create(instance, interceptoHandlerMock.Instance);
             proxy.Echo(value);
 
             // Assert           
