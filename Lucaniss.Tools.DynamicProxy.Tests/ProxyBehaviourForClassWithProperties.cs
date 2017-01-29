@@ -1,6 +1,5 @@
 using System;
 using Lucaniss.Tools.DynamicMocks;
-using Lucaniss.Tools.DynamicProxy.Implementation.Interceptors;
 using Lucaniss.Tools.DynamicProxy.Tests.Data;
 using Lucaniss.Tools.DynamicProxy.Tests.Data.Classes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,8 +20,8 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             var invocationHandler = new InvocationHandler();
 
             interceptoHandlerMock
-                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvokation>()))
-                .Callback<IProxyInvokation>(invokation =>
+                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation>()))
+                .Callback<IProxyInvocation>(invokation =>
                 {
                     invokation.Invoke();
                     invocationHandler.IsInvoked = true;
@@ -49,8 +48,8 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             var invocationHandler = new InvocationHandler();
 
             interceptoHandlerMock
-                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvokation>()))
-                .Callback<IProxyInvokation>(invokation =>
+                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation>()))
+                .Callback<IProxyInvocation>(invokation =>
                 {
                     invokation.Invoke();
                     invocationHandler.IsInvoked = true;

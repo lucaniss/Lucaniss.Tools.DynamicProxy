@@ -1,8 +1,8 @@
-﻿namespace Lucaniss.Tools.DynamicProxy.Implementation.Interceptors
+﻿namespace Lucaniss.Tools.DynamicProxy
 {
     public interface IProxyInterceptorHandler
     {
-        void Handle(IProxyInvokation invokation);
+        void Handle(IProxyInvocation invokation);
     }
 
     public interface IProxyInterceptorHandler<TClass> : IProxyInterceptorHandler

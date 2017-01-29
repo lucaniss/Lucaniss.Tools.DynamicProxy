@@ -2,7 +2,7 @@
 using System.Reflection;
 
 
-namespace Lucaniss.Tools.DynamicProxy.Implementation.Interceptors.Implementations
+namespace Lucaniss.Tools.DynamicProxy.Implementation
 {
     public class ProxyInterceptor : IProxyInterceptor
     {
@@ -14,7 +14,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation.Interceptors.Implementation
 
         public Object Intercept(IProxyInterceptorHandler interceptorHandler, Object originalInstance, String methodName, String[] argumentTypeNames, Object[] argumentValues)
         {
-            var proxyInvokation = new ProxyInvokation(originalInstance, methodName, argumentTypeNames, argumentValues);
+            var proxyInvokation = new ProxyInvocation(originalInstance, methodName, argumentTypeNames, argumentValues);
             interceptorHandler.Handle(proxyInvokation);
 
             return proxyInvokation.GetReturnValue();

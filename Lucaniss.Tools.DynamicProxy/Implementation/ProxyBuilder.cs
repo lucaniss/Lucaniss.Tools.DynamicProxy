@@ -5,8 +5,6 @@ using System.Reflection.Emit;
 using System.Threading;
 using Lucaniss.Tools.DynamicProxy.Consts;
 using Lucaniss.Tools.DynamicProxy.Extensions;
-using Lucaniss.Tools.DynamicProxy.Implementation.Interceptors;
-using Lucaniss.Tools.DynamicProxy.Implementation.Interceptors.Implementations;
 
 
 namespace Lucaniss.Tools.DynamicProxy.Implementation

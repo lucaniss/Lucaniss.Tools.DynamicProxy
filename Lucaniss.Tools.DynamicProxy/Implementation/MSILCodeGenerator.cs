@@ -3,7 +3,6 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using Lucaniss.Tools.DynamicProxy.Extensions;
-using Lucaniss.Tools.DynamicProxy.Implementation.Interceptors.Implementations;
 
 
 namespace Lucaniss.Tools.DynamicProxy.Implementation

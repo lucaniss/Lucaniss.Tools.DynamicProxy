@@ -1,7 +1,10 @@
 using System;
 
 
-namespace Lucaniss.Tools.DynamicProxy.Implementation.Interceptors
+// ReSharper disable UnusedMethodReturnValue.Global (£F: Use by MSIL)
+// ReSharper disable UnusedMemberInSuper.Global (£F: Use by MSIL)
+
+namespace Lucaniss.Tools.DynamicProxy
 {
     public interface IProxyInterceptor
     {

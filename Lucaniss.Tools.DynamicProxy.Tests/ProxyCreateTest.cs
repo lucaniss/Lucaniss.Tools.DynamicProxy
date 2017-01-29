@@ -2,7 +2,6 @@
 using Lucaniss.Tools.DynamicMocks;
 using Lucaniss.Tools.DynamicProxy.Consts;
 using Lucaniss.Tools.DynamicProxy.Exceptions;
-using Lucaniss.Tools.DynamicProxy.Implementation.Interceptors;
 using Lucaniss.Tools.DynamicProxy.Tests.Data.Classes;
 using Lucaniss.Tools.DynamicProxy.Tests.Data.Classes.Inheritance;
 using Lucaniss.Tools.DynamicProxy.Tests.Extensions;
@@ -143,8 +142,8 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
         {
             var mock = Mock.Create<IProxyInterceptorHandler<T>>();
 
-            mock.SetupMethod(e => e.Handle(Arg.Any<IProxyInvokation>()))
-                .Callback<IProxyInvokation>(invokation =>
+            mock.SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation>()))
+                .Callback<IProxyInvocation>(invokation =>
                 {
                     invokation.Invoke();
                 });

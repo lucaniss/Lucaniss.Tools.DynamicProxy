@@ -2,10 +2,9 @@
 using System.Linq;
 using Lucaniss.Tools.DynamicProxy.Exceptions;
 using Lucaniss.Tools.DynamicProxy.Extensions;
-using Lucaniss.Tools.DynamicProxy.Implementation.Interceptors;
 
 
-namespace Lucaniss.Tools.DynamicProxy.Implementation.Validations
+namespace Lucaniss.Tools.DynamicProxy.Implementation
 {
     internal static class ProxyValidator
     {
@@ -46,7 +45,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation.Validations
         // ReSharper disable once UnusedParameter.Local (assertion method)
         private static void CheckIfOriginalInstanceMethodsAreVirtual(Object originalInstance)
         {
-            if (originalInstance.GetType().GetMethods().Any(e => !e.IsSpecialCrlMethod() && e.IsPublic && !e.IsVirtual))
+            if (originalInstance.GetType().GetMethods().Any(e => !e.IsStatic && e.IsPublic && !e.IsVirtual && !e.IsSpecialCrlMethod()))
             {
                 throw ProxyExceptionHelper.OriginalInstancePublicMethodsMustBeVirtual();
             }

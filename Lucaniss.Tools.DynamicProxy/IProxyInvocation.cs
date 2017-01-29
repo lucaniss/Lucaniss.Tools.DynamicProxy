@@ -1,9 +1,9 @@
 ﻿using System;
 
 
-namespace Lucaniss.Tools.DynamicProxy.Implementation.Interceptors
+namespace Lucaniss.Tools.DynamicProxy
 {
-    public interface IProxyInvokation
+    public interface IProxyInvocation
     {
         Object OriginalInstance { get; }
         String MethodName { get; }

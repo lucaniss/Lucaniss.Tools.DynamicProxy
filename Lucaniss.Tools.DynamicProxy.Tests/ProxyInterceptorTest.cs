@@ -1,8 +1,7 @@
 ﻿using System;
 using Lucaniss.Tools.DynamicMocks;
 using Lucaniss.Tools.DynamicProxy.Exceptions;
-using Lucaniss.Tools.DynamicProxy.Implementation.Interceptors;
-using Lucaniss.Tools.DynamicProxy.Implementation.Interceptors.Implementations;
+using Lucaniss.Tools.DynamicProxy.Implementation;
 using Lucaniss.Tools.DynamicProxy.Tests.Data.Classes;
 using Lucaniss.Tools.DynamicProxy.Tests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,8 +23,8 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             var interceptor = new ProxyInterceptor();
             var interceptorHandlerMock = Mock.Create<IProxyInterceptorHandler>();
 
-            interceptorHandlerMock.SetupMethod(e => e.Handle(Arg.Any<IProxyInvokation>()))
-                .Callback<IProxyInvokation>(invokation =>
+            interceptorHandlerMock.SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation>()))
+                .Callback<IProxyInvocation>(invokation =>
                 {
                     interceptorBeforeInvokeFlag = true;
                     invokation.Invoke();
@@ -52,8 +51,8 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             var interceptor = new ProxyInterceptor();
             var interceptorHandlerMock = Mock.Create<IProxyInterceptorHandler>();
 
-            interceptorHandlerMock.SetupMethod(e => e.Handle(Arg.Any<IProxyInvokation>()))
-                .Callback<IProxyInvokation>(invokation =>
+            interceptorHandlerMock.SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation>()))
+                .Callback<IProxyInvocation>(invokation =>
                 {
                     interceptorBeforeInvokeFlag = true;
                     invokation.Invoke();
@@ -61,7 +60,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
                 });
 
             // Act
-            interceptor.Intercept(interceptorHandlerMock.Instance, instance, "Echo", new[] { typeof (String).FullName }, new Object[] { "Lucaniss" });
+            interceptor.Intercept(interceptorHandlerMock.Instance, instance, "Echo", new[] { typeof (String).AssemblyQualifiedName }, new Object[] { "Lucaniss" });
 
             // Assert
             Assert.AreEqual(true, interceptorBeforeInvokeFlag);
@@ -76,8 +75,8 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             var interceptor = new ProxyInterceptor();
             var interceptorHandlerMock = Mock.Create<IProxyInterceptorHandler>();
 
-            interceptorHandlerMock.SetupMethod(e => e.Handle(Arg.Any<IProxyInvokation>()))
-                .Callback<IProxyInvokation>(invokation =>
+            interceptorHandlerMock.SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation>()))
+                .Callback<IProxyInvocation>(invokation =>
                 {
                     invokation.Invoke();
                 });

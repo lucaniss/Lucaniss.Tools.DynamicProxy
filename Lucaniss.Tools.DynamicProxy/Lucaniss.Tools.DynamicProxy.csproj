@@ -42,12 +42,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\ParameterInfoExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="Implementation\Interceptors\IProxyInterceptorHandler.cs" />
-    <Compile Include="Implementation\Interceptors\IProxyInterceptor.cs" />
-    <Compile Include="Implementation\Interceptors\IProxyInvokation.cs" />
-    <Compile Include="Implementation\Interceptors\Implementations\ProxyInvokation.cs" />
+    <Compile Include="IProxyInterceptorHandler.cs" />
+    <Compile Include="IProxyInterceptor.cs" />
+    <Compile Include="IProxyInvocation.cs" />
+    <Compile Include="Implementation\ProxyInvocation.cs" />
     <Compile Include="Implementation\MSILCodeGenerator.cs" />
     <Compile Include="Implementation\MSILCodeVariables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,9 +59,9 @@
     <Compile Include="Extensions\MethodInfoExtensions.cs" />
     <Compile Include="Proxy.cs" />
     <Compile Include="Exceptions\ProxyException.cs" />
-    <Compile Include="Implementation\Interceptors\Implementations\ProxyInterceptor.cs" />
+    <Compile Include="Implementation\ProxyInterceptor.cs" />
     <Compile Include="Helpers\FrameworkHelper.cs" />
-    <Compile Include="Implementation\Validations\ProxyValidator.cs" />
+    <Compile Include="Implementation\ProxyValidator.cs" />
     <Compile Include="Resources\ExceptionResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -6,9 +6,9 @@ using Lucaniss.Tools.DynamicProxy.Exceptions;
 using Lucaniss.Tools.DynamicProxy.Extensions;
 
 
-namespace Lucaniss.Tools.DynamicProxy.Implementation.Interceptors.Implementations
+namespace Lucaniss.Tools.DynamicProxy.Implementation
 {
-    internal class ProxyInvokation : IProxyInvokation
+    internal class ProxyInvocation : IProxyInvocation
     {
         public Object OriginalInstance { get; }
         public String MethodName { get; }
@@ -19,7 +19,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation.Interceptors.Implementation
         private Object _returnValue;
 
 
-        public ProxyInvokation(Object originalInstance, String methodName, String[] argumentTypes, Object[] argumentValues)
+        public ProxyInvocation(Object originalInstance, String methodName, String[] argumentTypes, Object[] argumentValues)
         {
             OriginalInstance = originalInstance;
             MethodName = methodName;
@@ -34,7 +34,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation.Interceptors.Implementation
             if (!_isInvoked)
             {
                 var methodInfo = OriginalInstance.GetType().GetMethodInfosForProxy()
-                    .SingleOrDefault(m => m.Name == MethodName && CheckIfParametersMatch(m, ArgumentTypes));
+                    .SingleOrDefault(m => m.Name == MethodName && CheckIfParametersMatch(m, ArgumentTypes, ArgumentValues));
 
                 if (methodInfo != null)
                 {
@@ -48,7 +48,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation.Interceptors.Implementation
             }
             else
             {
-                throw ProxyExceptionHelper.ProxyMethodNotInvoked(MethodName);
+                throw ProxyExceptionHelper.ProxyMethodWasInvoked(MethodName);
             }
         }
 
@@ -63,23 +63,26 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation.Interceptors.Implementation
         }
 
 
-        private static Boolean CheckIfParametersMatch(MethodInfo methodInfo, IReadOnlyList<String> parameterTypes)
+        private static Boolean CheckIfParametersMatch(MethodInfo methodInfo, IReadOnlyList<String> argumentTypes, IReadOnlyList<Object> argumentValues)
         {
             var parameterInfos = methodInfo.GetParameters();
-            if (parameterInfos.Length == parameterTypes.Count)
+            if (parameterInfos.Length != argumentTypes.Count)
             {
-                for (var i = 0; i < parameterTypes.Count; i++)
+                return false;
+            }
+
+            for (var i = 0; i < argumentTypes.Count; i++)
+            {
+                if (!parameterInfos[i].SafeGetType().IsAssignableFrom(argumentValues[i]?.SafeGetType()))
                 {
-                    if (parameterInfos[i].ParameterType.FullName != parameterTypes[i])
+                    if (parameterInfos[i].SafeGetTypeName() != argumentTypes[i])
                     {
                         return false;
                     }
                 }
-
-                return true;
             }
 
-            return false;
+            return true;
         }
     }
 }

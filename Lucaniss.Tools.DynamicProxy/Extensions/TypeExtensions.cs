@@ -10,7 +10,7 @@ namespace Lucaniss.Tools.DynamicProxy.Extensions
     {
         public static IEnumerable<MethodInfo> GetMethodInfosForProxy(this Type type)
         {
-            return type.GetMethods().Where(m => m.IsPublic && m.IsVirtual);
+            return type.GetMethods().Where(m => !m.IsStatic && m.IsPublic && m.IsVirtual);
         }
 
         public static Type SafeGetType(this Type type)
@@ -20,7 +20,7 @@ namespace Lucaniss.Tools.DynamicProxy.Extensions
 
         public static String SafeGetTypeName(this Type type)
         {
-            return SafeGetType(type).IsGenericParameter ? type.Name : type.FullName;
+            return SafeGetType(type).IsGenericParameter ? type.Name : type.AssemblyQualifiedName;
         }
 
         public static Boolean IsValueOrPrimitiveType(this Type parameterInfo)
