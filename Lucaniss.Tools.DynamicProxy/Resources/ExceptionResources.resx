@@ -133,7 +133,7 @@
     <value>Orignal instance is null.</value>
   </data>
   <data name="OriginalInstancePublicMethodsMustBeVirtual" xml:space="preserve">
-    <value>Public methods must be virtual.</value>
+    <value>Public methods have to be virtual.</value>
   </data>
   <data name="ProxyMethodNotFound" xml:space="preserve">
     <value>Proxy method '{0}' not found.</value>

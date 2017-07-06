@@ -106,7 +106,7 @@ namespace Lucaniss.Tools.DynamicProxy.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Public methods must be virtual..
+        ///   Looks up a localized string similar to Public methods have to be virtual..
         /// </summary>
         internal static string OriginalInstancePublicMethodsMustBeVirtual {
             get {
