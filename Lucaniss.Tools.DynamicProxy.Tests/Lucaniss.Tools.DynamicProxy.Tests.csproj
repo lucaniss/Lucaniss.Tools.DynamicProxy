@@ -64,6 +64,7 @@
     <Compile Include="Data\Classes\Inheritance\TestClassBase.cs" />
     <Compile Include="Data\Classes\Inheritance\TestClassInherited.cs" />
     <Compile Include="Data\Classes\TestClassAndMethodWithoutParameters.cs" />
+    <Compile Include="Data\Classes\TestClassInCache.cs" />
     <Compile Include="Data\Classes\TestClassWithConstructor.cs" />
     <Compile Include="Data\Classes\TestClassWithParameterOut.cs" />
     <Compile Include="Data\Classes\TestClassWithParameterRef.cs" />

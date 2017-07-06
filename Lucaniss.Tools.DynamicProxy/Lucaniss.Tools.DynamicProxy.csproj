@@ -45,6 +45,8 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\ParameterInfoExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Implementation\ProxyCacheKey.cs" />
+    <Compile Include="IProxyCache.cs" />
     <Compile Include="IProxyInterceptorHandler.cs" />
     <Compile Include="IProxyInterceptor.cs" />
     <Compile Include="IProxyInvocation.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Implementation\ProxyInterceptor.cs" />
     <Compile Include="Helpers\FrameworkHelper.cs" />
     <Compile Include="Implementation\ProxyValidator.cs" />
+    <Compile Include="Implementation\ProxyCache.cs" />
     <Compile Include="Resources\ExceptionResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

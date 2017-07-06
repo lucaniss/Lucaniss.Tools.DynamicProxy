@@ -14,9 +14,9 @@ namespace Lucaniss.Tools.DynamicProxy
             return (TProxy) CreateProxy(typeof (TProxy), originalInstance, interceptorHandlerInstance);
         }
 
-        public static TClass Create<TClass, TInterceptor>(TClass originalInstance, TInterceptor interceptorHandlerInstance)
+        public static TClass Create<TClass, TInterceptorHandler>(TClass originalInstance, TInterceptorHandler interceptorHandlerInstance)
             where TClass : class
-            where TInterceptor : IProxyInterceptorHandler<TClass>
+            where TInterceptorHandler : IProxyInterceptorHandler<TClass>
         {
             return (TClass) CreateProxy(typeof (TClass), originalInstance, interceptorHandlerInstance);
         }
@@ -36,7 +36,7 @@ namespace Lucaniss.Tools.DynamicProxy
         {
             ProxyValidator.Validate(originalInstance, interceptorHandlerInstance);
 
-            var proxyBuilder = new ProxyBuilder();
+            var proxyBuilder = new ProxyBuilder(new ProxyCache());
             var proxy = proxyBuilder.Create(proxyType, originalInstance, interceptorHandlerInstance);
 
             return proxy;

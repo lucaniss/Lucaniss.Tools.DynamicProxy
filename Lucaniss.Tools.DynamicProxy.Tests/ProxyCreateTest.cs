@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Lucaniss.Tools.DynamicMocks;
 using Lucaniss.Tools.DynamicProxy.Consts;
 using Lucaniss.Tools.DynamicProxy.Exceptions;
@@ -7,6 +8,8 @@ using Lucaniss.Tools.DynamicProxy.Tests.Data.Classes.Inheritance;
 using Lucaniss.Tools.DynamicProxy.Tests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+
+// ReSharper disable BuiltInTypeReferenceStyle
 
 namespace Lucaniss.Tools.DynamicProxy.Tests
 {
@@ -149,6 +152,27 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
                 });
 
             return mock.Instance;
+        }
+
+
+        [TestMethod]
+        public void CreateProxy_WhenCreateAgainForTheSameType_ThenTypeIsTakenFromCache()
+        {
+            // Arrange
+            Object instance = new TestClassInCache();
+            Object interceptorHandler = CreateDefaultInterceptorHandler<TestClassInCache>();
+
+            // Act
+            var stopwatch1 = Stopwatch.StartNew();
+            var proxy1 = Proxy.Create(instance, interceptorHandler);
+            stopwatch1.Stop();
+
+            var stopwatch2 = Stopwatch.StartNew();
+            var proxy2 = Proxy.Create(instance, interceptorHandler);
+            stopwatch2.Stop();
+
+            // Assert
+            Assert.AreEqual(proxy1.GetType(), proxy2.GetType());
         }
     }
 }
