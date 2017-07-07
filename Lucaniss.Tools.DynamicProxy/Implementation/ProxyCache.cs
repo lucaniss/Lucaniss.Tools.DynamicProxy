@@ -1,33 +1,34 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 
 namespace Lucaniss.Tools.DynamicProxy.Implementation
 {
     internal class ProxyCache : IProxyCache
     {
-        private static ConcurrentDictionary<ProxyCacheKey, Type> _dictionary;
+        private static IDictionary<ProxyCacheKey, Type> _dictionary;
 
 
         public ProxyCache()
         {
             if (_dictionary == null)
             {
-                _dictionary = new ConcurrentDictionary<ProxyCacheKey, Type>();
+                _dictionary = new Dictionary<ProxyCacheKey, Type>();
             }
         }
 
         public Type GetProxyType(ProxyCacheKey key)
         {
-            Type proxyType;
-
-            _dictionary.TryGetValue(key, out proxyType);
-            return proxyType;
+            return _dictionary.ContainsKey(key) ? _dictionary[key] : null;
         }
 
         public void AddProxyType(ProxyCacheKey key, Type proxyType)
         {
-            _dictionary.TryAdd(key, proxyType);
+            if (!_dictionary.ContainsKey(key))
+            {
+                _dictionary.Add(key, proxyType);
+            }
         }
     }
 }

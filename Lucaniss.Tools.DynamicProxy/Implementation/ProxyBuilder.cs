@@ -11,6 +11,8 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
 {
     internal class ProxyBuilder
     {
+        private static readonly Object CriticalSection = new Object();
+
         private readonly IProxyCache _proxyCache;
 
         private Object _originalInstance;
@@ -47,7 +49,12 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
 
             _proxyBaseType = proxyType;
 
-            CreateProxy();
+            // INFO: Why critical section? Because this code may be executed in multi-thread environment.
+            //       So we need to be sure that for the same base types (instance and interceptor handler) we get exactly the same referance to proxy type.
+            lock (CriticalSection)
+            {
+                CreateProxy();
+            }
 
             return _proxyInstance;
         }
@@ -106,7 +113,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
             var assemblyBuilder = Thread.GetDomain().DefineDynamicAssembly(new AssemblyName(ProxyConsts.AssemblyName), AssemblyBuilderAccess.Run);
             var moduleBuilder = assemblyBuilder.DefineDynamicModule(ProxyConsts.ModuleName);
 
-            _typeBuilder = moduleBuilder.DefineType(typeName, TypeAttributes.Class | TypeAttributes.Public, _proxyBaseType);            
+            _typeBuilder = moduleBuilder.DefineType(typeName, TypeAttributes.Class | TypeAttributes.Public, _proxyBaseType);
         }
 
         private void CreateConstructor(MSILCodeVariables variables)
