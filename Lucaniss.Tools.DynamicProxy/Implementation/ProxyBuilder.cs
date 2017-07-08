@@ -16,18 +16,15 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
         private readonly IProxyCache _proxyCache;
 
         private Object _originalInstance;
-        private Type _originalType;
 
         private Object _proxyInterceptorInstance;
         private Type _proxyInterceptorType;
 
-        private Object _proxyInterceptorHandlerInstance;
         private Type _proxyInterceptorHandlerType;
 
         private TypeBuilder _typeBuilder;
 
         private Type _proxyBaseType;
-        private Object _proxyInstance;
 
 
         public ProxyBuilder(IProxyCache proxyCache)
@@ -36,15 +33,13 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
         }
 
 
-        public Object Create(Type proxyType, Object originalInstance, Object interceptorHandlerIntance)
+        public Object Create(Object originalInstance, Object interceptorHandlerIntance, Type proxyType)
         {
             _originalInstance = originalInstance;
-            _originalType = originalInstance.GetType();
 
-            _proxyInterceptorInstance = new ProxyInterceptor();
-            _proxyInterceptorType = typeof (IProxyInterceptor);
+            _proxyInterceptorType = typeof (ProxyInterceptor<>).MakeGenericType(proxyType);
+            _proxyInterceptorInstance = Activator.CreateInstance(_proxyInterceptorType, interceptorHandlerIntance);
 
-            _proxyInterceptorHandlerInstance = interceptorHandlerIntance;
             _proxyInterceptorHandlerType = interceptorHandlerIntance.GetType();
 
             _proxyBaseType = proxyType;
@@ -53,14 +48,13 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
             //       So we need to be sure that for the same base types (instance and interceptor handler) we get exactly the same referance to proxy type.
             lock (CriticalSection)
             {
-                CreateProxy();
+                var type = CreateProxyType();
+                return Activator.CreateInstance(type, _originalInstance, _proxyInterceptorInstance);
             }
-
-            return _proxyInstance;
         }
 
 
-        private void CreateProxy()
+        private Type CreateProxyType()
         {
             var proxyCacheKey = new ProxyCacheKey(_proxyBaseType, _proxyInterceptorType, _proxyInterceptorHandlerType);
 
@@ -72,8 +66,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
                 var classVariables = new MSILCodeVariables
                 {
                     OriginalInstanceFieldInfo = CreateOriginalInstanceField(),
-                    InterceptorInstanceFieldInfo = CreateInterceptorInstanceField(),
-                    InterceptorHandlerInstanceFieldInfo = CreateInterceptorHandlerInstanceField()
+                    InterceptorInstanceFieldInfo = CreateInterceptorInstanceField()
                 };
 
                 CreateConstructor(classVariables);
@@ -83,7 +76,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
                 _proxyCache.AddProxyType(proxyCacheKey, proxyType);
             }
 
-            _proxyInstance = Activator.CreateInstance(proxyType, _originalInstance, _proxyInterceptorInstance, _proxyInterceptorHandlerInstance);
+            return proxyType;
         }
 
 
@@ -96,12 +89,6 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
         private FieldInfo CreateInterceptorInstanceField()
         {
             var fieldBuilder = _typeBuilder.DefineField(ProxyConsts.InterceptorInstanceFieldName, _proxyInterceptorType, FieldAttributes.Private);
-            return fieldBuilder;
-        }
-
-        private FieldInfo CreateInterceptorHandlerInstanceField()
-        {
-            var fieldBuilder = _typeBuilder.DefineField(ProxyConsts.InterceptorHandlerInstanceFieldName, _proxyInterceptorHandlerType, FieldAttributes.Private);
             return fieldBuilder;
         }
 
@@ -118,7 +105,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
 
         private void CreateConstructor(MSILCodeVariables variables)
         {
-            var defaultConstructor = _typeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, new[] { _proxyBaseType, _proxyInterceptorType, _proxyInterceptorHandlerType });
+            var defaultConstructor = _typeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, new[] { _proxyBaseType, _proxyInterceptorType });
             var msil = defaultConstructor.GetILGenerator();
 
             MSILCodeGenerator.CreateConstructor(msil, variables);

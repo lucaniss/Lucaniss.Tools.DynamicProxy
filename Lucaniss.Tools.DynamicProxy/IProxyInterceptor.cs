@@ -1,13 +1,13 @@
 using System;
 
 
-// ReSharper disable UnusedMethodReturnValue.Global (£F: Use by MSIL)
 // ReSharper disable UnusedMemberInSuper.Global (£F: Use by MSIL)
 
 namespace Lucaniss.Tools.DynamicProxy
 {
-    public interface IProxyInterceptor
+    internal interface IProxyInterceptor<in TProxy>
+        where TProxy : class
     {
-        Object Intercept(IProxyInterceptorHandler interceptorHandler, Object originalInstance, String methodName, String[] argumentTypeNames, Object[] argumentValues);
+        Object InterceptInternal(TProxy originalInstance, String methodName, String[] argumentTypeNames, Object[] argumentValues);
     }
 }

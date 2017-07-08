@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Lucaniss.Tools.DynamicProxy.Tests
 {
     [TestClass]
-    public class ProxyBehaviourForClassWithRefParameters
+    public class ProxyBehaviourForClassWithRefParametersTest
     {
         [TestMethod]
         public void InvokeProxyMethod_WhenMethodParameterIsRef_ThenChangeValue()
@@ -20,8 +20,8 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             const String valuAfterCall = "After";
 
             interceptoHandlerMock
-                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation>()))
-                .Callback<IProxyInvocation>(invokation =>
+                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation<TestClassWithParameterRef>>()))
+                .Callback<IProxyInvocation<TestClassWithParameterRef>>(invokation =>
                 {
                     invokation.Invoke();
                     invokation.ArgumentValues[0] = valuAfterCall;
@@ -50,8 +50,8 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             const String valuAfterCall = "After";
 
             interceptoHandlerMock
-                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation>()))
-                .Callback<IProxyInvocation>(invokation =>
+                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation<TestClassWithParameterOut>>()))
+                .Callback<IProxyInvocation<TestClassWithParameterOut>>(invokation =>
                 {
                     invokation.Invoke();
                     invokation.ArgumentValues[0] = valuAfterCall;

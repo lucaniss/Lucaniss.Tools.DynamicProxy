@@ -9,8 +9,6 @@ using Lucaniss.Tools.DynamicProxy.Tests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 
-// ReSharper disable BuiltInTypeReferenceStyle
-
 namespace Lucaniss.Tools.DynamicProxy.Tests
 {
     [TestClass]
@@ -71,10 +69,10 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
         {
             // Arrange
             Object instance = new TestClassInherited();
-            Object interceptorHandler = CreateDefaultInterceptorHandler<TestClassInherited>();
+            Object interceptorHandler = CreateDefaultInterceptorHandler<TestClassBase>();
 
             // Act
-            var proxy = Proxy.Create(typeof (TestClassBase), instance, interceptorHandler);
+            var proxy = Proxy.Create(instance, interceptorHandler, typeof (TestClassBase));
 
             // Assert
             Assert.AreEqual(String.Format(ProxyConsts.TypeName, typeof (TestClassBase).Name), proxy.GetType().Name);
@@ -145,8 +143,8 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
         {
             var mock = Mock.Create<IProxyInterceptorHandler<T>>();
 
-            mock.SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation>()))
-                .Callback<IProxyInvocation>(invokation =>
+            mock.SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation<T>>()))
+                .Callback<IProxyInvocation<T>>(invokation =>
                 {
                     invokation.Invoke();
                 });

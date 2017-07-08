@@ -3,9 +3,10 @@
 
 namespace Lucaniss.Tools.DynamicProxy
 {
-    public interface IProxyInvocation
+    public interface IProxyInvocation<out TProxy>
+        where TProxy : class
     {
-        Object OriginalInstance { get; }
+        TProxy OriginalInstance { get; }
         String MethodName { get; }
         String[] ArgumentTypes { get; }
         Object[] ArgumentValues { get; }

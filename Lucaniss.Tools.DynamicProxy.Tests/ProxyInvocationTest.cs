@@ -16,7 +16,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
         {
             // Arrange
             var instance = new TestClassAndMethodWithParameters();
-            var invokation = new ProxyInvocation(instance, TestClassAndMethodWithParameters.GetMethodNameForEcho(),
+            var invokation = new ProxyInvocation<TestClassAndMethodWithParameters>(instance, nameof(instance.Echo),
                 new[] { typeof (String).AssemblyQualifiedName },
                 new Object[] { "TEST" });
 
@@ -35,7 +35,7 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
         {
             // Arrange
             var instance = new TestClassAndMethodWithParameters();
-            var invokation = new ProxyInvocation(instance, TestClassAndMethodWithParameters.GetMethodNameForEcho(),
+            var invokation = new ProxyInvocation<TestClassAndMethodWithParameters>(instance, nameof(instance.Echo),
                 new[] { typeof (String).AssemblyQualifiedName },
                 new Object[] { "TEST" });
 

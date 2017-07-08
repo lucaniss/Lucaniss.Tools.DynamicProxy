@@ -73,9 +73,9 @@
     <Compile Include="Extensions\AssertException.cs" />
     <Compile Include="Data\InvocationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProxyBehaviourForClassWithMethods.cs" />
-    <Compile Include="ProxyBehaviourForClassWithProperties.cs" />
-    <Compile Include="ProxyBehaviourForClassWithRefParameters.cs" />
+    <Compile Include="ProxyBehaviourForClassWithMethodsTest.cs" />
+    <Compile Include="ProxyBehaviourForClassWithPropertiesTest.cs" />
+    <Compile Include="ProxyBehaviourForClassWithRefParametersTest.cs" />
     <Compile Include="Data\Classes\TestClass.cs" />
     <Compile Include="ProxyInterceptorTest.cs" />
     <Compile Include="ProxyCreateTest.cs" />

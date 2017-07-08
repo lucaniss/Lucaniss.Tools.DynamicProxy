@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Lucaniss.Tools.DynamicProxy.Tests
 {
     [TestClass]
-    public class ProxyBehaviourForClassWithProperties
+    public class ProxyBehaviourForClassWithPropertiesTest
     {
         [TestMethod]
         public void InvokeProxyGetterMethod_WhenInvokeMethod_ThenInvokeInterceptor()
@@ -20,8 +20,8 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             var invocationHandler = new InvocationHandler();
 
             interceptoHandlerMock
-                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation>()))
-                .Callback<IProxyInvocation>(invokation =>
+                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation<TestClassWithProperties>>()))
+                .Callback<IProxyInvocation<TestClassWithProperties>>(invokation =>
                 {
                     invokation.Invoke();
                     invocationHandler.IsInvoked = true;
@@ -48,8 +48,8 @@ namespace Lucaniss.Tools.DynamicProxy.Tests
             var invocationHandler = new InvocationHandler();
 
             interceptoHandlerMock
-                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation>()))
-                .Callback<IProxyInvocation>(invokation =>
+                .SetupMethod(e => e.Handle(Arg.Any<IProxyInvocation<TestClassWithProperties>>()))
+                .Callback<IProxyInvocation<TestClassWithProperties>>(invokation =>
                 {
                     invokation.Invoke();
                     invocationHandler.IsInvoked = true;

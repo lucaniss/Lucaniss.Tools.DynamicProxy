@@ -7,37 +7,37 @@ namespace Lucaniss.Tools.DynamicProxy
     public static class Proxy
     {
         public static TProxy Create<TClass, TProxy, TInterceptorHandler>(TClass originalInstance, TInterceptorHandler interceptorHandlerInstance)
-            where TProxy : class
             where TClass : TProxy
+            where TProxy : class
             where TInterceptorHandler : IProxyInterceptorHandler<TProxy>
         {
-            return (TProxy) CreateProxy(typeof (TProxy), originalInstance, interceptorHandlerInstance);
+            return (TProxy) CreateProxy(originalInstance, interceptorHandlerInstance, typeof (TProxy));
         }
 
         public static TClass Create<TClass, TInterceptorHandler>(TClass originalInstance, TInterceptorHandler interceptorHandlerInstance)
             where TClass : class
             where TInterceptorHandler : IProxyInterceptorHandler<TClass>
         {
-            return (TClass) CreateProxy(typeof (TClass), originalInstance, interceptorHandlerInstance);
+            return (TClass) CreateProxy(originalInstance, interceptorHandlerInstance, typeof (TClass));
         }
 
-        public static Object Create(Type proxyType, Object originalInstance, Object interceptorHandlerInstance)
+        public static Object Create(Object originalInstance, Object interceptorHandlerInstance, Type proxyType)
         {
-            return CreateProxy(proxyType, originalInstance, interceptorHandlerInstance);
+            return CreateProxy(originalInstance, interceptorHandlerInstance, proxyType);
         }
 
         public static Object Create(Object originalInstance, Object interceptorHandlerInstance)
         {
-            return CreateProxy(originalInstance?.GetType(), originalInstance, interceptorHandlerInstance);
+            return CreateProxy(originalInstance, interceptorHandlerInstance, originalInstance?.GetType());
         }
 
 
-        private static Object CreateProxy(Type proxyType, Object originalInstance, Object interceptorHandlerInstance)
+        private static Object CreateProxy(Object originalInstance, Object interceptorHandlerInstance, Type proxyType)
         {
             ProxyValidator.Validate(originalInstance, interceptorHandlerInstance);
 
             var proxyBuilder = new ProxyBuilder(new ProxyCache());
-            var proxy = proxyBuilder.Create(proxyType, originalInstance, interceptorHandlerInstance);
+            var proxy = proxyBuilder.Create(originalInstance, interceptorHandlerInstance, proxyType);
 
             return proxy;
         }

@@ -37,16 +37,6 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
             msil.Emit(OpCodes.Stfld, variables.InterceptorInstanceFieldInfo);
 
 
-            // INFO: Odłożenie na stosie obiektu 'this'.
-            msil.Emit(OpCodes.Ldarg_0);
-
-            // INFO: Odłożenie na stosie obiektu przekazanego w parametrze konstruktora (Interceptor).
-            msil.Emit(OpCodes.Ldarg_3);
-
-            // INFO: Skopiowanie obiektu Handlera do lokalnego pola instancji klasy Proxy.
-            msil.Emit(OpCodes.Stfld, variables.InterceptorHandlerInstanceFieldInfo);
-
-
             // INFO: Powrót z podprogramu.
             msil.Emit(OpCodes.Ret);
         }
@@ -128,10 +118,6 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
             msil.Emit(OpCodes.Ldarg_0);
             msil.Emit(OpCodes.Ldfld, variables.InterceptorInstanceFieldInfo);
 
-            // INFO: Odłożenie na stosie referencji 'this._proxyInterceptorHandlerInstance'
-            msil.Emit(OpCodes.Ldarg_0);
-            msil.Emit(OpCodes.Ldfld, variables.InterceptorHandlerInstanceFieldInfo);
-
             // INFO: Odłożenie na stosie referencji 'this._proxyOrgiginalInstance
             msil.Emit(OpCodes.Ldarg_0);
             msil.Emit(OpCodes.Ldfld, variables.OriginalInstanceFieldInfo);
@@ -146,7 +132,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
             msil.Emit(OpCodes.Ldloc, variables.ArrayForArgumentValuesVariable);
 
             // INFO: Wywołanie metody interceptora. Jeśli metoda zwraca wartość to ta wartość jest odkładana na stos.
-            msil.Emit(OpCodes.Call, ProxyInterceptor.GetInterceptorMethodInfo());
+            msil.Emit(OpCodes.Callvirt, ProxyInterceptor.GetInterceptorMethodInfo());
         }
 
         public static void HandleProxyInterceptorMethodReturnValue(ILGenerator msil, MethodInfo methodInfo)

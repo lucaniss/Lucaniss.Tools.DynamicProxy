@@ -11,6 +11,5 @@ namespace Lucaniss.Tools.DynamicProxy.Consts
 
         public const String OriginalInstanceFieldName = "_proxyOriginalInstance";
         public const String InterceptorInstanceFieldName = "_proxyInterceptorInstance";
-        public const String InterceptorHandlerInstanceFieldName = "_proxyInterceptorHandlerInstance";
     }
 }

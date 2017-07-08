@@ -9,6 +9,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
         private readonly Type _interceptorType;
         private readonly Type _interceptorHandlerType;
 
+
         public ProxyCacheKey(Type baseType, Type interceptorType, Type interceptorHandlerType)
         {
             _baseType = baseType;

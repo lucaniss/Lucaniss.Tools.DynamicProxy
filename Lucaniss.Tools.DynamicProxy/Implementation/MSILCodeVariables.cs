@@ -8,7 +8,6 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
     {
         public FieldInfo OriginalInstanceFieldInfo;
         public FieldInfo InterceptorInstanceFieldInfo;
-        public FieldInfo InterceptorHandlerInstanceFieldInfo;
 
         public LocalBuilder ArrayForArgumentTypesVariable { get; set; }
         public LocalBuilder ArrayForArgumentValuesVariable { get; set; }

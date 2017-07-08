@@ -8,9 +8,10 @@ using Lucaniss.Tools.DynamicProxy.Extensions;
 
 namespace Lucaniss.Tools.DynamicProxy.Implementation
 {
-    internal class ProxyInvocation : IProxyInvocation
+    internal class ProxyInvocation<TProxy> : IProxyInvocation<TProxy>
+        where TProxy : class
     {
-        public Object OriginalInstance { get; }
+        public TProxy OriginalInstance { get; }
         public String MethodName { get; }
         public String[] ArgumentTypes { get; }
         public Object[] ArgumentValues { get; }
@@ -19,7 +20,7 @@ namespace Lucaniss.Tools.DynamicProxy.Implementation
         private Object _returnValue;
 
 
-        public ProxyInvocation(Object originalInstance, String methodName, String[] argumentTypes, Object[] argumentValues)
+        public ProxyInvocation(TProxy originalInstance, String methodName, String[] argumentTypes, Object[] argumentValues)
         {
             OriginalInstance = originalInstance;
             MethodName = methodName;
